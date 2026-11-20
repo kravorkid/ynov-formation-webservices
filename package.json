@@ -16,7 +16,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start:exemples": "node ./exercice-exemples-api/server.js"
   },
   "dependencies": {
     "@koa/router": "^15.7.1",

@@ -3,12 +3,6 @@ import Router from "@koa/router";
 
 const app = new Koa();
 
-// app.use(async (ctx, next) => {
-//   const debut = Date.now()
-//   await next()
-//   const fin = Date.now()
-//   console.log(`${ctx.method} ${ctx.path} - ${fin - debut}ms`)
-// });
 const router = new Router();
 
 const exemples = [
@@ -29,22 +23,18 @@ router.get("/health", (ctx) => {
 });
 
 router.get("/exemples", (ctx) => {
-  const bool = ctx.query?.bool
-
-  if (bool === undefined) {
-    ctx.body = exemples;
-    return
+  if (ctx.query.bool === "true") {
+    ctx.body = exemples.filter((e) => {
+      return e.bool === true;
+    });
+    return;
+  } else if (ctx.query.bool === "false") {
+    ctx.body = exemples.filter((e) => {
+      return e.bool === false;
+    });
+    return;
   }
-
-  if (bool !== 'true' && bool !== 'false') {
-    ctx.status = 400
-    ctx.body = { error: "Invalid bool value" }
-  }
-
-  ctx.body = exemples.filter((e) => {
-    return e.bool === (bool === 'true');
-  });
-
+  ctx.body = exemples;
 });
 
 router.get("/exemples/count", (ctx) => {
